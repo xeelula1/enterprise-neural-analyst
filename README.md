@@ -1,5 +1,3 @@
-# enterprise-neural-analyst
-Analista de IA empresarial que permite leer cualquier documento que se le cargue y resumirlo o dar informacion del mismo. 
 # Enterprise Neural Analyst 🧠⚡
 > **Plataforma Empresarial de Análisis Documental Basada en RAG Híbrido y Agentes Autónomos**
 
@@ -22,12 +20,11 @@ Esta sobrecarga de datos genera tres grandes cuellos de botella operativos:
 **Enterprise Neural Analyst** es una solución de arquitectura **RAG Híbrido (Retrieval-Augmented Generation)** diseñada para transformar repositorios documentales pasivos en un motor de inteligencia activa. 
 
 El sistema garantiza:
-* **Gobernanza y Precisión:** Respuestas fundamentadas estrictamente en la documentación cargada por la empresa, acompañadas de **citas directas y número de página/fuente**.
+* **Gobernanza y Precisión:** Respuestas fundamentadas strictly en la documentación cargada por la empresa, acompañadas de **citas directas y número de página/fuente**.
 * **Agentes Autónomos:** Enrutamiento inteligente que evalúa si la consulta requiere análisis documental profundo, búsqueda externa o procesamiento de lógica.
 * **Privacidad de Datos:** Infraestructura modular capaz de conectarse a bases de datos vectoriales privadas sin exponer información confidencial de la organización.
 
 ---
-
 
 ## 📐 Arquitectura del Sistema
 
@@ -56,4 +53,21 @@ graph TD
     Router -->|5. Prompt Final = Pregunta + Contexto| LLM
     LLM -->|6. Respuesta Fundamentada| API
     API -->|7. Streaming SSE / Interfaz Web| User
+```
 
+### 🔍 Glosario de Conceptos de la Arquitectura
+
+* **Chunking (Fragmentación):** Proceso de dividir documentos extensos (PDFs de 100+ páginas) en bloques de texto más pequeños y manejables (ej. 500 palabras) manteniendo la coherencia semántica para no saturar el contexto del modelo.
+* **Embeddings (Vectores Semánticos):** Conversión de los fragmentos de texto en vectores numéricos de alta dimensión. Permiten al sistema entender el *significado* e *intención* del texto en lugar de buscar coincidencias exactas de palabras.
+* **Vector Store / Base de Datos Vectorial (ChromaDB/Qdrant):** Base de datos optimizada para almacenar y realizar búsquedas matemáticas por similitud cosenoidal entre vectores en cuestión de milisegundos.
+* **Router / Agente Orquestador:** Componente con lógica condicional que analiza la intención de la pregunta del usuario y decide automáticamente la mejor vía de ejecución (consultar documentos internos, buscar en la web o responder con lógica pura).
+* **Streaming SSE (Server-Sent Events):** Protocolo de comunicación unidireccional en tiempo real que permite enviar la respuesta del LLM token por token hacia la interfaz web, reduciendo la latencia percibida por el usuario.
+
+---
+
+## 🛠️ Stack Tecnológico
+
+* **Orquestación & IA:** Python, PyTorch, Transformers.
+* **Vector Store & Ingesta:** ChromaDB / Qdrant, Embeddings Multilingües.
+* **Backend REST API:** FastAPI, Pydantic, Server-Sent Events (SSE).
+* **Modelos:** Qwen 2.5 / Llama 3 / DeepSeek.
