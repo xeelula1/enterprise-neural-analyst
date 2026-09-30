@@ -28,28 +28,6 @@ El sistema garantiza:
 
 ---
 
-## 📐 Arquitectura del Sistema
-
-```mermaid
-graph TD
-    User[Cliente / Usuario Empresarial]
-    API[Gateway FastAPI / Backend REST]
-    Router[Agente Orquestador / Router]
-    
-    VectorDB[(Vector Store / ChromaDB)]
-    WebSearch[Microservicio Búsqueda Externa]
-    LLM[Modelo LLM Core]
-    Docs[Documentos PDFs / Corporativos]
-
-    Docs -->|1. Ingesta + Chunking + Embeddings| VectorDB
-    User -->|2. Consulta de Negocio| API
-    API -->|3. Procesa Petición| Router
-
-    Router -->|Opción A: Documentación Interna| VectorDB
-    Router -->|Opción B: Búsqueda Web| WebSearch
-    Router -->|Opción C: Lógica Directa| LLM
-
-
 
 ## 📐 Arquitectura del Sistema
 
@@ -79,9 +57,3 @@ graph TD
     LLM -->|6. Respuesta Fundamentada| API
     API -->|7. Streaming SSE / Interfaz Web| User
 
-    VectorDB -->|4. Contexto Relevante + Citas| Router
-    WebSearch -->|4. Resultados Externos| Router
-
-    Router -->|5. Prompt Final = Pregunta + Contexto| LLM
-    LLM -->|6. Respuesta Fundamentada| API
-    API -->|7. Streaming SSE / Interfaz Web| User
